@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <div class="d-flex align-items-center p-3 p-md-5 m-md-3 mb-3 text-dark bg-light rounded shadow-lg">
+  <!-- <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" id="weatherResults"> -->
+    <div class="col-lg-10 p-5 mx-auto text-center">
+      {% if radek == "Mountain View" %}
+        <h3 class="display-1 fw-bold text-secondary">{{ location }}</h3>
+        <h2 class="display-2 fw-bold text-secondary">{{ temp }}° C</h2>
+        <h3 class="display-3 fw-bold text-secondary">{{ weather }}</h3>
+        <h4 class="display-4 fw-bold text-secondary">Feels like: {{ feels_like }}° C</h4>
+      {% else %}
+      <h3 class="fw-bold">How does this app work?</h3>
+        <p>This simple web app uses Python and leverages Flask framework to build reliable, scalable, and maintainable application that
+        uses easy to understand, reusable code.</p>
+        <p>I have also used <strong>OpenWeatherMap</strong> online service, that provides global weather data via API.</p>
+        <p class="fw-bold">Now pick a city and check its current weather.</p>
+      {% endif %}
+    </div>
+  </div>
+
+
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light rounded shadow-lg">
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <form id="weatherForm" action="{{ url_for('render_results') }}" method="post">
+          <label for="weatherInput" class="form-label">City</label>
+          <input class="form-control" id="weatherInput" type="text" name="zipCode"><br>
+          <button class="btn btn-primary" id="weatherSubmit" type="submit" value="Submit">Submit</button>
+        </form>
+      </div>
+</div>
+
+{% endblock content %}
+
+
+
