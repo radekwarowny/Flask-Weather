@@ -7,8 +7,8 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-app.config['api_key'] = os.environ.get('API_KEY')
-app.config['api_url'] = os.environ.get('API_URL')
+api_key = os.environ.get('API_KEY')
+api_url = os.environ.get('API_URL')
 
 
 @app.route("/")
