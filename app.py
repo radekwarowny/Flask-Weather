@@ -7,11 +7,8 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-app.config['API_KEY'] = os.environ.get('API_KEY')
-
-geo_url = "https://ip-geolocation.whoisxmlapi.com/api/v1?apiKey=at_c6uADJia87Lvd538rTySm1bQFqyNG&ipAddress=8.8.8.8"
-
-API_KEY = '520b4b238162918bbe357f916e8b21ee'
+api_key = os.environ.get('API_KEY')
+api_url = os.environ.get('API_URL')
 
 
 @app.route("/")
@@ -21,7 +18,7 @@ def intro():
 
 @app.route("/home")
 def home():
-    return render_template('home.html', API_KEY=API_KEY)
+    return render_template('home.html', api_key=api_key)
 
 
 @app.route("/about")
@@ -35,18 +32,12 @@ def features():
 
 
 def get_weather_results(zip_code, api_key):
-    api_url = "http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid={}".format(zip_code, api_key)
-    r = requests.get(api_url)
+    r = requests.get(api_url.format(zip_code, api_key))
     return r.json()
 
 
 @app.route('/results', methods=['POST'])
 def render_results():
-
-    geo = requests.get(geo_url)
-    result = geo.json()
-
-    radek = result["location"]["city"]
     zip_code = request.form['zipCode']
 
     api_key = '520b4b238162918bbe357f916e8b21ee'
@@ -58,7 +49,7 @@ def render_results():
 
     return render_template('home.html',
                            location=location, temp=temp,
-                           feels_like=feels_like, weather=weather, radek=radek)
+                           feels_like=feels_like, weather=weather)
 
 
 
