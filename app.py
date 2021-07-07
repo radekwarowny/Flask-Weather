@@ -1,14 +1,13 @@
-import configparser
 import os
-
 import requests
 from flask import Flask, render_template, request
 
 
 app = Flask(__name__)
 
-api_key = os.environ.get('API_KEY')
-api_url = os.environ.get('API_URL')
+app.config['API_KEY'] = os.environ.get('API_KEY')
+app.config['API_URL'] = os.environ.get('API_URL')
+print(app.config['API_KEY'])
 
 
 @app.route("/")
@@ -18,7 +17,8 @@ def intro():
 
 @app.route("/home")
 def home():
-    return render_template('home.html', api_key=api_key)
+    key = app.config['API_KEY']
+    return render_template('home.html', key=key)
 
 
 @app.route("/about")
@@ -32,7 +32,9 @@ def features():
 
 
 def get_weather_results(zip_code, api_key):
-    r = requests.get(api_url.format(zip_code, api_key))
+    url = app.config['API_URL']
+    r = requests.get(url.format(zip_code, api_key))
+    print(url)
     return r.json()
 
 
