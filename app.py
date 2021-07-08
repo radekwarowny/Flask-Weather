@@ -1,13 +1,14 @@
+import configparser
 import os
+
 import requests
 from flask import Flask, render_template, request
 
 
 app = Flask(__name__)
 
-app.config['API_KEY'] = os.environ.get('API_KEY')
-app.config['API_URL'] = os.environ.get('API_URL')
-print(app.config['API_KEY'])
+api_key = os.environ.get('API_KEY')
+api_url = os.environ.get('API_URL')
 
 
 @app.route("/")
@@ -17,8 +18,7 @@ def intro():
 
 @app.route("/home")
 def home():
-    key = app.config['API_KEY']
-    return render_template('home.html', key=key)
+    return render_template('home.html')
 
 
 @app.route("/about")
@@ -31,19 +31,18 @@ def features():
     return render_template('features.html', title='Features')
 
 
-def get_weather_results(zip_code, api_key):
-    url = app.config['API_URL']
-    r = requests.get(url.format(zip_code, api_key))
-    print(url)
+def get_weather_results(city, api_key):
+
+    r = requests.get("http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid={}".format(city, api_key))
     return r.json()
 
 
 @app.route('/results', methods=['POST'])
 def render_results():
-    zip_code = request.form['zipCode']
+    foo = True
+    city = request.form['city']
 
-    api_key = '520b4b238162918bbe357f916e8b21ee'
-    data = get_weather_results(zip_code, api_key)
+    data = get_weather_results(city, api_key)
     temp = "{0:.1f}".format(data["main"]["temp"])
     feels_like = "{0:.1f}".format(data["main"]["feels_like"])
     weather = data["weather"][0]["main"]
@@ -51,8 +50,8 @@ def render_results():
 
     return render_template('home.html',
                            location=location, temp=temp,
-                           feels_like=feels_like, weather=weather)
+                           feels_like=feels_like, weather=weather, foo=foo)
 
 
-
-
+if __name__ == "__main__":
+    app.run(debug=True)
