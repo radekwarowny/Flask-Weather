@@ -1,12 +1,21 @@
-import configparser
-import os
+#!/usr/bin/env python
 
+"""app.py: Driver code for weather app."""
+
+import os
 import requests
 from flask import Flask, render_template, request
+
+__author__      = "Radek Warowny"
+__version__     = "1.0.1"
+__maintainer__  = "Radek Warowny"
+__email__       = "radekwarownydev@gmail.com"
+__status__      = "Production"
 
 
 app = Flask(__name__)
 
+# Assigning environment variables
 api_key = os.environ.get('API_KEY')
 api_url = os.environ.get('API_URL')
 
@@ -32,16 +41,16 @@ def features():
 
 
 def get_weather_results(city, api_key):
-
-    r = requests.get("http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid={}".format(city, api_key))
+    # Getting weather data from OpenWeatherMap and using generated api key
+    r = requests.get(api_url.format(city, api_key))
     return r.json()
 
 
 @app.route('/results', methods=['POST'])
 def render_results():
     foo = True
+    # Extracting weather data from Json file
     city = request.form['city']
-
     data = get_weather_results(city, api_key)
     temp = "{0:.1f}".format(data["main"]["temp"])
     feels_like = "{0:.1f}".format(data["main"]["feels_like"])
