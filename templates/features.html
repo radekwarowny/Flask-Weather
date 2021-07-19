@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
 <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold">Flask Features</h1>
       <p><strong>Flask</strong> is a micro web framework written in Python. It is classified as a microframework because it does not require particular tools or libraries. It has no database abstraction layer, form validation, or any other components where pre-existing third-party libraries provide common functions. However, Flask supports extensions that can add application features as if they were implemented in Flask itself. Extensions exist for object-relational mappers, form validation, upload handling, various open authentication technologies and several common framework related tools.
         Applications that use the Flask framework include Pinterest and LinkedIn.</p>
     </div>
-  <div class="accordion" id="accordionPanelsFlaskFeatures">
+
+  <div class="accordion" id="accordionPanelsStayOpenExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
@@ -58,37 +60,35 @@
     </div>
   </div>
 </div>
-  <div class="container-fluid py-5">
+</div>
+
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold">Weather API</h1>
       <p><strong>Openweathermap</strong> offers access to current weather data for any location on Earth. The collected data is available in JSON, XML, or HTML format.</p>
-    </div>
-  <div class="accordion" id="accordionPanelWeatherAPI">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingFive">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-        Current weather data
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-      <div class="accordion-body">
-        Access current weather data for any location incliding 200,000 cities. Data collected and processed form different sources such as global and local weather models, satellites, radars and a vast network of weather stations.
+      <br>
+      <div class="row">
+        <div class="col-4">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Current Weather</a>
+            <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Historical Data</a>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">Access current weather data for any location incliding 200,000 cities. Data collected and processed form different sources such as global and local weather models, satellites, radars and a vast network of weather stations.</div>
+            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">API provides historical data for 63,000+ cities. Data available for 1 month in JSON format.</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingSix">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-        Historical weather data collection
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-      <div class="accordion-body">
-        API provides historical data for 63,000+ cities. Data available for 1 month in JSON format.
-      </div>
-    </div>
-  </div>
-  </div>
 </div>
+
+
+
+
+
+
 
 
 {% endblock content %}
